@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Loading } from "@/components/loading"
+import { GoogleDriveImage } from "@/components/ui/google-drive-image"
 import {
   Mail,
   Phone,
@@ -43,7 +44,6 @@ interface ProfileData {
 export function Home() {
   const [profile, setProfile] = useState<ProfileData | null>(null)
   const [loading, setLoading] = useState(true)
-  const [imageLoaded, setImageLoaded] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
 
   useEffect(() => {
@@ -184,15 +184,14 @@ export function Home() {
                     <div className="relative mb-6 flex justify-center">
                       <div className="relative group">
                         <div className="absolute -inset-4 bg-gradient-to-r from-white/20 to-gray-400/20 rounded-full blur-lg group-hover:blur-xl transition-all duration-500" />
-                        {profile.Foto_Profil_URL ? (
-                          <img
-                            src={profile.Foto_Profil_URL || "/placeholder.svg"}
-                            alt={profile.nama_lengkap}
-                            className={`relative w-32 h-32 object-cover rounded-full border-4 border-white shadow-2xl transition-all duration-700 group-hover:scale-110 ${
-                              imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                            }`}
-                            onLoad={() => setImageLoaded(true)}
-                          />
+                        {profile.Foto_Profil_URL && profile.Foto_Profil_URL.trim() !== "" ? (
+                          <div className="relative w-32 h-32 rounded-full border-4 border-white shadow-2xl transition-all duration-700 group-hover:scale-110 overflow-hidden">
+                            <GoogleDriveImage
+                              url={profile.Foto_Profil_URL}
+                              alt={profile.nama_lengkap}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
                         ) : (
                           <div className="relative w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full border-4 border-white shadow-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                             <span className="text-4xl font-bold text-white">{profile.nama_lengkap.charAt(0)}</span>

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Calendar, Award, Star, ExternalLink, Zap, Shield, ChevronLeft, ChevronRight, X, Eye } from "lucide-react"
 import { Loading } from "@/components/loading"
+import { GoogleDriveImage } from "@/components/ui/google-drive-image"
 
 interface CertificationData {
   ID_Sertifikasi: string
@@ -139,8 +140,8 @@ export function Certifications() {
                           {/* Left Side - Image */}
                           <div className="relative overflow-hidden bg-gray-800">
                             {cert.Gambar_Sertifikasi_URL ? (
-                              <img
-                                src={cert.Gambar_Sertifikasi_URL || "/placeholder.svg"}
+                              <GoogleDriveImage
+                                url={cert.Gambar_Sertifikasi_URL}
                                 alt={cert.Nama_Sertifikasi}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                               />
@@ -250,8 +251,8 @@ export function Certifications() {
                     {/* Certificate Image */}
                     {cert.Gambar_Sertifikasi_URL && (
                       <div className="relative aspect-video bg-gray-800 overflow-hidden">
-                        <img
-                          src={cert.Gambar_Sertifikasi_URL || "/placeholder.svg"}
+                        <GoogleDriveImage
+                          url={cert.Gambar_Sertifikasi_URL}
                           alt={cert.Nama_Sertifikasi}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
@@ -332,8 +333,8 @@ export function Certifications() {
               <div className="relative">
                 <div className="aspect-video bg-gray-800 rounded-2xl overflow-hidden shadow-2xl">
                   {selectedCert.Gambar_Sertifikasi_URL ? (
-                    <img
-                      src={selectedCert.Gambar_Sertifikasi_URL || "/placeholder.svg"}
+                    <GoogleDriveImage
+                      url={selectedCert.Gambar_Sertifikasi_URL}
                       alt={selectedCert.Nama_Sertifikasi}
                       className="w-full h-full object-cover"
                     />

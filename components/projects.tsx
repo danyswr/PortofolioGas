@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Code, Folder, Star, ArrowRight, Github, Zap, Rocket } from "lucide-react"
 import { Loading } from "@/components/loading"
+import { GoogleDriveImage } from "@/components/ui/google-drive-image"
 
 interface ProjectData {
   ID_project: string
@@ -99,21 +100,28 @@ export function Projects() {
                 <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/5 rounded-full -translate-x-10 translate-y-10 group-hover:scale-150 transition-transform duration-700" />
 
                 {/* Project Image */}
-                {project.Gambar_Proyek_URL && (
-                  <div className="relative aspect-video bg-gray-800 overflow-hidden">
-                    <img
-                      src={project.Gambar_Proyek_URL || "/placeholder.svg"}
+                <div className="relative aspect-video bg-gray-800 overflow-hidden">
+                  {project.Gambar_Proyek_URL ? (
+                    <GoogleDriveImage
+                      url={project.Gambar_Proyek_URL}
                       alt={project.Nama_Proyek}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="p-2 bg-white/20 backdrop-blur-sm rounded-full">
-                        <Github className="w-4 h-4 text-white" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                      <div className="text-center">
+                        <Code className="w-16 h-16 text-gray-500 mx-auto mb-4" />
+                        <p className="text-gray-400 text-sm">Project Image</p>
                       </div>
                     </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="p-2 bg-white/20 backdrop-blur-sm rounded-full">
+                      <Github className="w-4 h-4 text-white" />
+                    </div>
                   </div>
-                )}
+                </div>
 
                 <CardHeader className="relative">
                   <CardTitle className="flex items-start gap-3 text-white group-hover:text-gray-200 transition-colors">
