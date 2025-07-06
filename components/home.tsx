@@ -39,6 +39,7 @@ interface ProfileData {
   Lokasi: string
   Link_LinkedIn: string
   Link_GitHub: string
+  CV_URL: string // Added CV URL field
 }
 
 export function Home() {
@@ -76,6 +77,7 @@ export function Home() {
           Lokasi: profileRow[6] || "",
           Link_LinkedIn: profileRow[7] || "",
           Link_GitHub: profileRow[8] || "",
+          CV_URL: profileRow[9] || "public/cv-daniswara-apriliano.pdf", // Default CV path
         })
       }
     } catch (error) {
@@ -84,6 +86,17 @@ export function Home() {
       setLoading(false)
     }
   }
+
+  const downloadCV = () => {
+    if (profile?.CV_URL) {
+      const link = document.createElement('a');
+      link.href = profile.CV_URL;
+      link.download = 'cv-daniswara-apriliano.pdf'; // Customize filename if needed
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
 
   if (loading) {
     return <Loading icon={Rocket} title="Loading Portfolio" subtitle="Preparing something amazing..." />
@@ -219,11 +232,13 @@ export function Home() {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3">
-                      <Button className="flex-1 bg-white text-black hover:bg-gray-200 font-semibold group">
+                      <Button
+                        className="flex-1 bg-white text-black hover:bg-gray-200 font-semibold group"
+                        onClick={downloadCV}
+                      >
                         <Download className="w-4 h-4 mr-2 group-hover:animate-bounce" />
                         Download CV
                       </Button>
-                      
                     </div>
                   </CardContent>
                 </Card>
